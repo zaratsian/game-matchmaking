@@ -1,7 +1,5 @@
-# Login to your Google Account for GCP
-#gcloud auth login
-#gcloud config set project $YOUR_GCP_PROJECT_ID
-export PROJECT_ID=$(gcloud config get-value project)
+# Load config
+. ./config
 
 # Enable necessary GCP services
 # NOTE: Change to to Artifact Registry
@@ -10,18 +8,22 @@ gcloud services enable container.googleapis.com
 
 # Create a GKE Cluster in this project
 # https://cloud.google.com/sdk/gcloud/reference/container/clusters/create
-gcloud container clusters create open-match-cluster \
-    --machine-type n1-standard-2 \
-    --zone us-west1-a \
-    --num-nodes 3 \
-    --tags open-match
+gcloud container clusters create ${GKE_CLUSTER_NAME} \
+    --enable-ip-alias \
+    --machine-type ${GKE_MACHINE_TYPE} \
+    --zone ${GKE_MACHINE_ZONE} \
+    --num-nodes=${GKE_MIN_NODES} \
+    --enable-autoscaling \
+    --min-nodes=${GKE_MIN_NODES} \
+    --max-nodes=${GKE_MAX_NODES} \
+    --tags ${GKE_CLUSTER_TAGS}
 
 # Get kubectl credentials against GKE
 # Updates a kubeconfig file with appropriate credentials and 
 # endpoint information to point kubectl at a specific cluster in 
 # Google Kubernetes Engine
 # https://cloud.google.com/sdk/gcloud/reference/container/clusters/get-credentials
-gcloud container clusters get-credentials open-match-cluster --zone us-west1-a
+gcloud container clusters get-credentials ${GKE_CLUSTER_NAME} --zone ${GKE_MACHINE_ZONE}
 
 # Install the core Open Match services.
 # 01-open-match-core.yaml installs Open Match with the default configs.
@@ -40,5 +42,4 @@ kubectl get -n open-match pod
 kubectl apply --namespace open-match \
     -f https://open-match.dev/install/v1.2.0/yaml/06-open-match-override-configmap.yaml \
     -f https://open-match.dev/install/v1.2.0/yaml/07-open-match-default-evaluator.yaml
-
 
