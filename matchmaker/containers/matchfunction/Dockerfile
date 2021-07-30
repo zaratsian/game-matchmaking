@@ -21,10 +21,10 @@ COPY open-match /app/open-match
 RUN pwd
 RUN ls -al
 
-WORKDIR /app/open-match/tutorials/matchmaker101/matchfunction
+WORKDIR /app/open-match/tutorials/matchmaker101/solution/matchfunction
 
 RUN pwd
 RUN ls -al
 RUN go build -o matchfunction .
 
-CMD ["/app/open-match/tutorials/matchmaker101/matchfunction/matchfunction"]
+CMD ["/app/open-match/tutorials/matchmaker101/solution/matchfunction/matchfunction"]

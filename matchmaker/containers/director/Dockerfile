@@ -21,10 +21,10 @@ COPY open-match /app/open-match
 RUN pwd
 RUN ls -al
 
-WORKDIR /app/open-match/tutorials/matchmaker101/director
+WORKDIR /app/open-match/tutorials/matchmaker101/solution/director
 
 RUN pwd
 RUN ls -al
 RUN go build -o director .
 
-CMD ["/app/open-match/tutorials/matchmaker101/director/director"]
+CMD ["/app/open-match/tutorials/matchmaker101/solution/director/director"]

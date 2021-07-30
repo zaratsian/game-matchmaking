@@ -1,7 +1,8 @@
 # Load config
 . ./config
 
-git clone https://github.com/googleforgames/open-match.git
+REGISTRY="${GCP_ARTIFACT_REGISTRY_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GCP_ARTIFACT_REGISTRY_NAME}"
+echo "Artifact Registry Path: ${REGISTRY}"
 
 TUTORIALROOT=open-match/tutorials/matchmaker101/
 cd $TUTORIALROOT
@@ -10,6 +11,3 @@ cd $TUTORIALROOT
 # to the same cluster as Open Match deployment but to a different namespace. 
 # The $TUTORIALROOT/matchmaker.yaml deploys these components to a mm101-tutorial namespace
 sed "s|REGISTRY_PLACEHOLDER|$REGISTRY|g" matchmaker.yaml | kubectl apply -f -
-
-# Cleanup 
-rm -rf ../../../open-match

@@ -21,10 +21,10 @@ COPY open-match /app/open-match
 RUN pwd
 RUN ls -al
 
-WORKDIR /app/open-match/tutorials/matchmaker101/frontend
+WORKDIR /app/open-match/tutorials/matchmaker101/solution/frontend
 
 RUN pwd
 RUN ls -al
 RUN go build -o frontend .
 
-CMD ["/app/open-match/tutorials/matchmaker101/frontend/frontend"]
+CMD ["/app/open-match/tutorials/matchmaker101/solution/frontend/frontend"]
