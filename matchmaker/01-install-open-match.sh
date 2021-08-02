@@ -20,6 +20,9 @@ gcloud container clusters create ${GKE_CLUSTER_NAME} \
 # https://cloud.google.com/sdk/gcloud/reference/container/clusters/get-credentials
 gcloud container clusters get-credentials ${GKE_CLUSTER_NAME} --zone ${GKE_MACHINE_ZONE}
 
+# Explicitly create namepace
+#kubectl create namespace open-match
+
 # Install the core Open Match services.
 # 01-open-match-core.yaml installs Open Match with the default configs.
 kubectl apply --namespace open-match \
