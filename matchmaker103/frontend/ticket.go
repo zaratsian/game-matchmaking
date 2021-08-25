@@ -20,6 +20,7 @@ import (
 	"open-match.dev/open-match/pkg/pb"
 )
 
+
 package main
 
 import (
@@ -63,11 +64,22 @@ func getGameMode() string {
     return modes[rand.Intn(len(modes))]
 }
 
+
 func getRegion() string {
-    gcp_region, ok := os.LookupEnv("GCP_REGION")
-    if !ok {
-        return "unknown"
-    } else { return gcp_region }
+	/*
+		Simulates user GCP region
+	*/
+	gcp_regions := []string{"us-central1-a",
+							"us-central1-b",
+							"us-east1-c",
+							"us-west2-a",
+							"us-west3-a",
+							"southamerica-east1-b",
+							"europe-north1-a",
+							"europe-west4-b",
+							"australia-southeast1-a",
+							"asia-northeast1-a"}
+    return gcp_regions[rand.Intn(len(gcp_regions))]
 }
 
 func getPlayerRank() float64 {
