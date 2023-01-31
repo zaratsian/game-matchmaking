@@ -1,17 +1,23 @@
 # Load config
 . ./config
 
+# Create a GKE Autopilot Cluster
+# https://cloud.google.com/kubernetes-engine/docs/how-to/creating-an-autopilot-cluster
+gcloud container clusters create-auto \
+    --project ${GCP_PROJECT_ID}
+    --region ${GCP_REGION}
+
 # Create a GKE Cluster in this project
 # https://cloud.google.com/sdk/gcloud/reference/container/clusters/create
-gcloud container clusters create ${GKE_CLUSTER_NAME} \
-    --enable-ip-alias \
-    --machine-type ${GKE_MACHINE_TYPE} \
-    --zone ${GKE_MACHINE_ZONE} \
-    --num-nodes=${GKE_MIN_NODES} \
-    --enable-autoscaling \
-    --min-nodes=${GKE_MIN_NODES} \
-    --max-nodes=${GKE_MAX_NODES} \
-    --tags ${GKE_CLUSTER_TAGS}
+#gcloud container clusters create ${GKE_CLUSTER_NAME} \
+#    --enable-ip-alias \
+#    --machine-type ${GKE_MACHINE_TYPE} \
+#    --zone ${GKE_MACHINE_ZONE} \
+#    --num-nodes=${GKE_MIN_NODES} \
+#    --enable-autoscaling \
+#    --min-nodes=${GKE_MIN_NODES} \
+#    --max-nodes=${GKE_MAX_NODES} \
+#    --tags ${GKE_CLUSTER_TAGS}
 
 # Get kubectl credentials against GKE
 # Updates a kubeconfig file with appropriate credentials and 
@@ -26,7 +32,7 @@ gcloud container clusters get-credentials ${GKE_CLUSTER_NAME} --zone ${GKE_MACHI
 # Install the core Open Match services.
 # 01-open-match-core.yaml installs Open Match with the default configs.
 kubectl apply --namespace open-match \
-    -f https://open-match.dev/install/v1.2.0/yaml/01-open-match-core.yaml
+    -f https://open-match.dev/install/v1.6.0/yaml/01-open-match-core.yaml
 
 # Get the Pod State
 # NOTE: Open Match needs to be customized to run as a Matchmaker.

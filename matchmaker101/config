@@ -1,6 +1,7 @@
 # Deployment Configs
 
 GCP_PROJECT_ID=$(gcloud config get-value project)
+GCP_REGION=us-central1
 
 GCP_ARTIFACT_REGISTRY_NAME="${GCP_PROJECT_ID}-open-match"
 GCP_ARTIFACT_REGISTRY_REGION="us-central1"
