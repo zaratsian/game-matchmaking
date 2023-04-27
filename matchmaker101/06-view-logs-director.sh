@@ -1,8 +1,9 @@
 
 kubectl get pods -n mm101-tutorial
 
-sleep 5
+sleep 2
 
-kubectl logs -n mm101-tutorial pod/mm101-tutorial-director
+echo ""
+kubectl logs -n mm101-tutorial pod/mm101-tutorial-director --tail 50
 
 

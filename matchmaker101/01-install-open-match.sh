@@ -3,8 +3,8 @@
 
 # Create a GKE Autopilot Cluster
 # https://cloud.google.com/kubernetes-engine/docs/how-to/creating-an-autopilot-cluster
-gcloud container clusters create-auto \
-    --project ${GCP_PROJECT_ID}
+gcloud container clusters create-auto ${GKE_CLUSTER_NAME} \
+    --project ${GCP_PROJECT_ID} \
     --region ${GCP_REGION}
 
 # Create a GKE Cluster in this project
@@ -24,7 +24,7 @@ gcloud container clusters create-auto \
 # endpoint information to point kubectl at a specific cluster in 
 # Google Kubernetes Engine
 # https://cloud.google.com/sdk/gcloud/reference/container/clusters/get-credentials
-gcloud container clusters get-credentials ${GKE_CLUSTER_NAME} --zone ${GKE_MACHINE_ZONE}
+gcloud container clusters get-credentials ${GKE_CLUSTER_NAME} --region ${GCP_REGION}
 
 # Explicitly create namepace
 #kubectl create namespace open-match
@@ -32,7 +32,7 @@ gcloud container clusters get-credentials ${GKE_CLUSTER_NAME} --zone ${GKE_MACHI
 # Install the core Open Match services.
 # 01-open-match-core.yaml installs Open Match with the default configs.
 kubectl apply --namespace open-match \
-    -f https://open-match.dev/install/v1.6.0/yaml/01-open-match-core.yaml
+    -f https://open-match.dev/install/v1.7.0/yaml/01-open-match-core.yaml
 
 # Get the Pod State
 # NOTE: Open Match needs to be customized to run as a Matchmaker.
@@ -44,6 +44,5 @@ kubectl get -n open-match pod
 
 # Install the Default Evaluator
 kubectl apply --namespace open-match \
-    -f https://open-match.dev/install/v1.2.0/yaml/06-open-match-override-configmap.yaml \
-    -f https://open-match.dev/install/v1.2.0/yaml/07-open-match-default-evaluator.yaml
-
+    -f https://open-match.dev/install/v1.7.0/yaml/06-open-match-override-configmap.yaml \
+    -f https://open-match.dev/install/v1.7.0/yaml/07-open-match-default-evaluator.yaml
