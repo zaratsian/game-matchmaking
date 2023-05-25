@@ -11,7 +11,7 @@ kubectl create namespace ${NAMESPACE}
 git clone https://github.com/googleforgames/open-match.git
 
 # Build the Frontend image.
-docker build -t $REGISTRY/${NAMESPACE}-frontend -f containers/frontend/Dockerfile .
+docker build -t $REGISTRY/${NAMESPACE}-frontend -f ./frontend/Dockerfile .
 
 # Push the Frontend image to the configured Registry.
 docker push $REGISTRY/${NAMESPACE}-frontend
